@@ -1,0 +1,188 @@
+openapi: 3.0.0
+info:
+  description: "This Open API Specification defines the protocol that the frontend expects from its backend."
+  version: 1.0.0
+  title: "SecEx - Secure File Exchange"
+  license:
+    name: GPL-3.0
+    url: https://github.com/phidevz/secex/blob/main/LICENSE
+externalDocs:
+  description: Check out this project on Github
+  url: https://github.com/phidevz/secex
+tags:
+  - name: Keys
+  - name: Upload
+    description: ""
+  - name: Download
+    description: ""
+paths:
+  "/keys":
+    get:
+      tags:
+        - Keys
+      summary: Get the server keys for validating signatures
+      description: "You should only return keys that you would consider GPG trust level 3 or 4!"
+      operationId: getKeys
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  "/upload/{id}":
+    head:
+      tags:
+        - Upload
+      summary: Test if an upload ID is valid
+      description: ""
+      operationId: testUpload
+      parameters:
+        - name: id
+          in: path
+          description: "Upload ID (usually a folder on the server's filesystem)"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Upload ID is valid and the server will accept these uploads
+        "404":
+          description: Upload ID is invalid and the server will not accept these uploads
+    post:
+      tags:
+        - Upload
+      summary: Upload files
+      description: ""
+      operationId: upload
+      parameters:
+        - name: id
+          in: path
+          description: "Upload ID (usually a folder on the server's filesystem)"
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "200":
+          description: Upload successful
+          content:
+            text/plain:
+              schema:
+                type: string
+        "400":
+          description: "Either upload ID is invalid or the `Content-Type` of the request does not represent a form"
+  "/d/{id}":
+    head:
+      tags:
+        - Download
+      summary: Test if an download ID is valid
+      description: ""
+      operationId: testDownload
+      parameters:
+        - name: id
+          in: path
+          description: "Download ID (usually a folder on the server's filesystem)"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Download ID is valid and the server will serve these downloads
+        "403":
+          description: Browsing files has been disabled on server side (default setting)
+        "404":
+          description: Download ID is invalid and the server will not serve these downloads
+    options:
+      tags:
+        - Download
+      summary: List files to download
+      description: ""
+      operationId: listFiles
+      parameters:
+        - name: id
+          in: path
+          description: "Upload ID (usually a folder on the server's filesystem)"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Download ID is valid and the server will serve these downloads
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "403":
+          description: Browsing files has been disabled on server side (default setting)
+        "404":
+          description: Download ID is invalid and the server will not serve these downloads
+  "/d/{id}/{fileName}":
+    head:
+      tags:
+        - Download
+      summary: Test if a download ID is valid and the file exists
+      description: ""
+      operationId: testFile
+      parameters:
+        - name: id
+          in: path
+          description: "Download ID (usually a folder on the server's filesystem)"
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: path
+          description: "File name to download (usually same as on the server's filesystem)"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Download ID and/or file name are valid and the server will serve this file
+        "404":
+          description: Download ID and/or file name are invalid and the server will not serve this file
+    get:
+      tags:
+        - Download
+      summary: Download file
+      description: ""
+      operationId: downloadFile
+      parameters:
+        - name: id
+          in: path
+          description: "Download ID (usually a folder on the server's filesystem)"
+          required: true
+          schema:
+            type: string
+        - name: fileName
+          in: path
+          description: "File name to download (usually same as on the server's filesystem)"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Download ID and/or file name are valid and the server will serve this file
+          content: 
+            "application/pgp-encrypted":
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Download ID and/or file name are invalid and the server will not serve this file
