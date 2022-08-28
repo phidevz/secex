@@ -7,7 +7,12 @@
             "Upload": "Upload Files",
             "UploadText": "Click or drag file to this area to upload",
             "UploadHint": "Supports single files or bulk upload",
-            "UploadSetPasswordHeader": "Set a password for encryption",
+            "UploadEncryptionHeader": "Set encryption options",
+            "UploadEncryptWithPublicKey": "Encrypt automatically",
+            "UploadEncryptWithPassword": "Encrypt with password",
+            "UploadPublicKeyNotAvialable": "Option not available because recipient does not offer any public keys.",
+            "UploadPublicKeyDescription": "All files will be automatically encrypted on upload. Only the server operator (usually also the recipient of your uploads) can decrypt the files, without the need to transmit a password via any other medium. You should verify the presented identities.",
+            "UploadPublicKeyIdentities": "The server operator presents the following identities:",
             "UploadPasswordDescription": "All files that you upload will be encrypted with the following password. Ensure that you communicate the password with the recipient (optimally) verbally or somehow else.",
             "UploadPasswordPlaceholder": "Password for encryption",
             "UploadStepHeader": "Upload the files",
@@ -30,7 +35,10 @@
             "PasswordWrong": "Password wrong",
             "Save": "Save",
             "Apply": "Apply",
-            "Proceed": "Proceed"
+            "Proceed": "Proceed",
+            "and": "and",
+            "MoreNames": "other names",
+            "OneMoreName": "one other name"
         }
     },
     "de": {
@@ -41,7 +49,12 @@
             "Upload": "Dateien hochladen",
             "UploadText": "Hier klicken oder Dateien per Drag-and-Drop hierher ziehen zum hochladen",
             "UploadHint": "Untersützt einzelne oder mehrere Dateien gleichzeitig",
-            "UploadSetPasswordHeader": "Legen Sie ein Passwort zur Verschlüsslung fest",
+            "UploadEncryptionHeader": "Verschlüsslung festlegen",
+            "UploadEncryptWithPublicKey": "Automatisch verschlüsseln",
+            "UploadEncryptWithPassword": "Mit Passwort verschlüsseln",
+            "UploadPublicKeyNotAvialable": "Option steht nicht zur Verfügung, weil der Empfänger keine öffentlichen Schlüssel anbietet.",
+            "UploadPublicKeyDescription": "Alle Dateien, die Sie hochladen, werden automatisch für den Server-Betreiber (in der Regel ist dieser auch der Empfänger) verschlüsselt. Sie müssen kein Passwort austauschen, der Server-Betreiber gibt hier seine Identität preis; diese sollten Sie überprüfen.",
+            "UploadPublicKeyIdentities": "Der Server-Betreiber gibt folgende Identitäten zur Verschlüsslung an:",
             "UploadPasswordDescription":"Alle Dateien, die Sie hochladen, werden mit dem folgenden Passwort verschlüsselt. Stellen Sie sicher, dass das Sie dem Empfänger das Passwort auf einem anderen Medium (vorzugsweise verbal oder per Post) mitteilen.",
             "UploadPasswordPlaceholder": "Passwort zur Verschlüsslung",
             "UploadStepHeader": "Die Dateien hochladen",
@@ -64,7 +77,10 @@
             "PasswordWrong": "Falsches Passwort",
             "Save": "Speichern",
             "Apply": "Übernehmen",
-            "Proceed": "Fortfahren"
+            "Proceed": "Fortfahren",
+            "and": "und",
+            "MoreNames": "weitere Namen",
+            "OneMoreName": "ein weiterer Name"
         }
     }
 }

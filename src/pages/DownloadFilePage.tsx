@@ -24,6 +24,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackendContext, SignatureVerification, ValidSignature, UnknownSignature, DecryptedFile } from "@secex/backend";
+import { UserIds } from "@secex/components";
 
 const { Step } = Steps;
 
@@ -42,7 +43,7 @@ function SignatureBlock(props: { signature: SignatureVerification }) {
         const valid = v as ValidSignature;
         const userIds = valid.signingKey.getUserIDs();
         return (<>
-            <span><CheckCircleFilled className="signature-icon signed-valid" />valid, signed by '{userIds[0]}'{userIds.length > 1 && (<span> (and {userIds.length - 1} other name(s))</span>)}</span>
+            <span><CheckCircleFilled className="signature-icon signed-valid" />valid, signed by <UserIds userIds={userIds} /></span>
         </>);
     } else if (v.state === "Unknown") {
         const unknown = v as UnknownSignature;

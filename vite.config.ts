@@ -54,7 +54,7 @@ const gitInfo = (): PluginOption => ({
     try {
       execSync("git --version").length > 0
 
-      getGitHash = () => execSync("gite log -1 --format='%H'").toString().trim();
+      getGitHash = () => execSync("git log -1 --format='%H'").toString().trim().replace("'", "");
       getGitDescribe = () => execSync("git describe --all").toString().trim();
       getGitIsDirty = () => execSync("git status --porcelain").length > 0;
     } catch {

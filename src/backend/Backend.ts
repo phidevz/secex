@@ -20,13 +20,15 @@
 
 import { UploadTest, TestResult, DecryptedFile, RcFile } from "@secex/backend";
 
-export interface Backend {
-    getUploadUrl(uploadId: string): string;
-    testUpload(uploadId: string): Promise<boolean>;
-    encryptUpload(file: RcFile, password: string): Promise<File | false>;
+export type EncryptOptions = { encryptWithPublicKey: true, password: string | undefined } | { encryptWithPublicKey: false, password: string };
 
-    testDownload(downloadId: string): Promise<TestResult>;
-    listFiles(downloadId: string): Promise<string[] | undefined>;
-    testFile(downloadId: string, fileName: string): Promise<boolean>;
-    downloadFile(downloadId: string, fileName: string, password: string): Promise<DecryptedFile>;
+export interface Backend {
+  getUploadUrl(uploadId: string): string;
+  testUpload(uploadId: string): Promise<UploadTest>;
+  encryptUpload(file: RcFile, options: EncryptOptions): Promise<File | false>;
+
+  testDownload(downloadId: string): Promise<TestResult>;
+  listFiles(downloadId: string): Promise<string[] | undefined>;
+  testFile(downloadId: string, fileName: string): Promise<boolean>;
+  downloadFile(downloadId: string, fileName: string, password: string): Promise<DecryptedFile>;
 }

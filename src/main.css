@@ -159,3 +159,62 @@ main {
 .language img {
   margin-right: 0.5em;
 }
+
+.upload-encryption-options .ant-checkbox-wrapper+.ant-checkbox-wrapper,
+.upload-encryption-options .not-label+.ant-checkbox-wrapper {
+  margin-left: 0;
+  margin-top: 1em;
+}
+
+.upload-encryption-options .ant-checkbox-wrapper+.not-label {
+  margin: 0;
+}
+
+.upload-encryption-options code {
+  font-size: calc(1em - 1pt);
+}
+
+.upload-encryption-options .not-label {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 8px 0 24px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  font-feature-settings: 'tnum';
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  line-height: unset;
+}
+
+.upload-encryption-options .not-label ul {
+  padding-left: 2em;
+}
+
+.userids-more-names {
+  text-decoration: dotted underline;
+  text-underline-offset: 2pt;
+  cursor: help;
+}
+
+.additional-userid {
+  display: flex;
+}
+
+.additional-userid+.additional-userid{
+  margin-top: 0.5em;
+}
+
+.additional-userids {
+  display: flex;
+  flex-direction: column;
+}
+
+li.server-key+li.server-key {
+  margin-top: 0.5em;
+}
+
+.version-details {
+  cursor: help;
+}

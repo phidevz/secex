@@ -18,6 +18,6 @@
   ---------------------------------------------------------------------
 */
 
-export interface UploadTest {
-    numberOfServerKeys: number
-}
+import * as openpgp from 'openpgp';
+
+export type UploadTest = { isValid: true, serverKeys: openpgp.Key[] } | { isValid: false };

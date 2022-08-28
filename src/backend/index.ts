@@ -18,7 +18,7 @@
   ---------------------------------------------------------------------
 */
 
-export type { Backend } from './Backend';
+export type { Backend, EncryptOptions } from './Backend';
 export type { UnknownSignature, ValidSignature, SignatureVerification } from './SignatureVerification';
 export type { DecryptedFile } from './DecryptedFile';
 export type { UploadTest } from './UploadTest';

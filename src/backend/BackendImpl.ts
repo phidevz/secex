@@ -20,7 +20,7 @@
 
 import * as openpgp from 'openpgp';
 
-import { Backend, UploadTest, getFilenameFromContentDispositionHeader, RcFile, TestResult, SignatureVerification, ValidSignature, DecryptedFile, UnknownSignature } from "@secex/backend";
+import { UploadTest, Backend, getFilenameFromContentDispositionHeader, RcFile, TestResult, SignatureVerification, ValidSignature, DecryptedFile, UnknownSignature, EncryptOptions } from "@secex/backend";
 
 export class BackendImpl implements Backend {
     private _backendUrl: string;
@@ -31,28 +31,37 @@ export class BackendImpl implements Backend {
 
         this._serverKeys = this.getVerificationKeys();
     }
+
     getUploadUrl(uploadId: string): string {
         return `${this._backendUrl}upload/${uploadId}`;
     }
 
-    async testUpload(uploadId: string): Promise<boolean> {
+    async testUpload(uploadId: string): Promise<UploadTest> {
         try {
+            const serverKeys = await this._serverKeys;
             const response = await fetch(this.getUploadUrl(uploadId), { method: 'HEAD' });
-            return response.ok;
+            if (response.ok !== true) {
+                return { isValid: false };
+            }
+
+            return {
+                isValid: true,
+                serverKeys: serverKeys
+            };
         } catch (e) {
             console.error(e);
-            return false;
+            return { isValid: false };
         }
     }
 
-    async encryptUpload(file: RcFile, password: string): Promise<false | File> {
+    async encryptUpload(file: RcFile, options: EncryptOptions): Promise<false | File> {
         try {
             const serverKeys = await this._serverKeys;
             const message = await openpgp.createMessage({ binary: file.stream(), filename: file.name, date: file.lastModifiedDate });
             const encryptedMessage = await openpgp.encrypt({
                 message: message,
-                passwords: password,
-                encryptionKeys: serverKeys,
+                passwords: options.password ? options.password : undefined,
+                encryptionKeys: options.encryptWithPublicKey === true ? serverKeys : undefined,
                 format: 'binary'
             }) as ReadableStream<Uint8Array>;
 
@@ -67,14 +76,21 @@ export class BackendImpl implements Backend {
     }
 
     async getVerificationKeys(): Promise<openpgp.Key[]> {
-        const response = await fetch(`${this._backendUrl}keys`, { method: 'GET' });
+        try {
+            const response = await fetch(`${this._backendUrl}keys`, { method: 'GET' });
 
-        const amoredKeys = await response.json() as string[];
-        if (amoredKeys.length === 0) {
-            return [];
+            const amoredKeys = await response.json() as string[];
+            if (amoredKeys.length === 0) {
+                return [];
+            }
+
+            return await Promise.all(amoredKeys.map(armoredKey => openpgp.readKey({ armoredKey: armoredKey })));
+        } catch (e) {
+            if (typeof e === 'object' && e as TypeError !== null) {
+
+            }
+            throw e;
         }
-
-        return await Promise.all(amoredKeys.map(armoredKey => openpgp.readKey({ armoredKey: armoredKey })));
     }
 
     async testDownload(downloadId: string): Promise<TestResult> {
