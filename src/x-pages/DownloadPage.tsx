@@ -17,13 +17,14 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
   ---------------------------------------------------------------------
 */
-
+"use client";
 import { Button, Input, Steps, Transfer } from "antd";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
-import { useTranslation } from 'react-i18next';
-import { TransferItem } from 'antd/lib/transfer';
-import { BackendContext, TestResult } from "@secex/backend";
+import { useTranslation } from "~/app/i18n/client";
+import type { TransferItem } from 'antd/lib/transfer';
+import { TestResult } from "~/backend";
+import { BackendContext } from "~/backend/backendContext";
 
 const { Step } = Steps;
 

@@ -18,7 +18,7 @@
   ---------------------------------------------------------------------
 */
 
-import { UploadTest, TestResult, DecryptedFile, RcFile } from "@secex/backend";
+import type { TestResult, DecryptedFile, RcFile } from "~/backend";
 
 export interface Backend {
     getUploadUrl(uploadId: string): string;

@@ -20,7 +20,7 @@
 
 import * as openpgp from 'openpgp';
 
-import { Backend, UploadTest, getFilenameFromContentDispositionHeader, RcFile, TestResult, SignatureVerification, ValidSignature, DecryptedFile, UnknownSignature } from "@secex/backend";
+import { type Backend, getFilenameFromContentDispositionHeader, type RcFile, TestResult, type SignatureVerification, type ValidSignature, type DecryptedFile, type UnknownSignature } from "~/backend";
 
 export class BackendImpl implements Backend {
     private _backendUrl: string;

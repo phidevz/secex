@@ -17,10 +17,10 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
   ---------------------------------------------------------------------
 */
-
+"use client";
 import { Button, Dropdown, Menu } from 'antd';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "~/app/i18n/client";
 import { Outlet } from 'react-router-dom';
 import { Version } from './Version';
 

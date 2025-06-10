@@ -17,14 +17,14 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
   ---------------------------------------------------------------------
 */
-
+"use client";
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import i18n from "i18next";
-import { initReactI18next } from 'react-i18next';
-import { Backend, BackendImpl } from '@secex/backend';
-import { UploadPage, DownloadPage, DownloadFilePage, InvalidPath } from '@secex/pages';
+import { initReactI18next } from 'next-i18next';
+import { type Backend, BackendImpl } from '~/backend';
+import { UploadPage, DownloadPage, DownloadFilePage, InvalidPath } from '~/x-pages';
 import { default as translationResources } from './translations.json';
 import App from './App';
 import './main.css';

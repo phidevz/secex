@@ -18,7 +18,7 @@
   ---------------------------------------------------------------------
 */
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "~/app/i18n/client";
 
 export default function InvalidPath() {
     const { t } = useTranslation();

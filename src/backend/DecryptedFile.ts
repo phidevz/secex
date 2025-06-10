@@ -19,7 +19,7 @@
 */
 
 import * as openpgp from 'openpgp';
-import { SignatureVerification } from '@secex/backend';
+import { SignatureVerification } from '~/backend';
 
 export interface DecryptedFile {
     message: openpgp.DecryptMessageResult,

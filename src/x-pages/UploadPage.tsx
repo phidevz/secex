@@ -17,14 +17,15 @@
   along with this program. If not, see <https://www.gnu.org/licenses/>.
   ---------------------------------------------------------------------
 */
-
+"use client";
 import { Upload, message, Steps, Input, Button } from 'antd';
 import { InboxOutlined, InfoCircleFilled } from '@ant-design/icons';
-import { UploadFile, UploadChangeParam } from 'antd/lib/upload/interface';
+import type { UploadFile, UploadChangeParam } from 'antd/lib/upload/interface';
 import { useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { BackendContext, UploadTest } from '@secex/backend';
+import { useTranslation } from "~/app/i18n/client";
+
+import { BackendContext } from "~/backend/backendContext";
 
 const { Dragger } = Upload;
 const { Step } = Steps;

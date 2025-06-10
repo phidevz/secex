@@ -26,6 +26,5 @@ export type { UploadTest } from './UploadTest';
 export { TestResult } from './TestResult';
 export { BackendImpl } from './BackendImpl';
 export { getFilenameFromContentDispositionHeader } from "./contentdisposition";
-export { BackendContext } from '../main'
 
 export type { RcFile } from 'antd/lib/upload';
