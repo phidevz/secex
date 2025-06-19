@@ -27,7 +27,11 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_GIT_SHA: z.string().optional(),
+    NEXT_PUBLIC_GIT_REF_TYPE: z.enum(["branch", "tag"]).optional(),
+    NEXT_PUBLIC_GIT_REF: z.string().optional(),
+    NEXT_PUBLIC_GIT_IS_DIRTY: z.boolean().optional(),
+    NEXT_PUBLIC_IS_DEV_SERVER: z.boolean()
   },
 
   /**
@@ -42,6 +46,11 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     SECEX_ENABLE_BROWSE_FILES: process.env.SECEX_ENABLE_BROWSE_FILES,
+    NEXT_PUBLIC_IS_DEV_SERVER: true,
+    NEXT_PUBLIC_GIT_SHA: undefined,
+    NEXT_PUBLIC_GIT_REF_TYPE: undefined,
+    NEXT_PUBLIC_GIT_REF: undefined,
+    NEXT_PUBLIC_GIT_IS_DIRTY: undefined,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
@@ -52,5 +61,5 @@ export const env = createEnv({
    * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
    * `SOME_VAR=''` will throw an error.
    */
-  emptyStringAsUndefined: true,
+  emptyStringAsUndefined: true
 });

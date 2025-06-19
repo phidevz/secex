@@ -5,7 +5,6 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { posts } from "~/server/db/schema";
 import { env } from "~/env";
 
 export const userRouter = createTRPCRouter({
@@ -21,6 +20,10 @@ export const userRouter = createTRPCRouter({
     return env.SECEX_ENABLE_BROWSE_FILES;
   }),
 
+  getVerificationKeys: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.backend.getVerificationKeysRaw();
+  }),
+
   testDownload: publicProcedure
     .input(z.object({ folder: z.string().min(1) }))
     .query(async ({ ctx, input }) => {
@@ -31,6 +34,12 @@ export const userRouter = createTRPCRouter({
     .input(z.object({ folder: z.string().min(1), file: z.string().min(1) }))
     .query(async ({ ctx, input }) => {
       return await ctx.backend.testFile(input.folder, input.file);
+    }),
+
+  downloadHeader: publicProcedure
+    .input(z.object({ folder: z.string().min(1), file: z.string().min(1) }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.backend.downloadHeader(input.folder, input.file);
     }),
 
   getLatest: protectedProcedure.query(async ({ ctx }) => {

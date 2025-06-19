@@ -18,7 +18,9 @@
   ---------------------------------------------------------------------
 */
 
-export { default as DownloadFilePage } from './DownloadFilePage'
-export { default as DownloadPage } from './DownloadPage'
-export { default as InvalidPath } from './InvalidPath'
-export { default as UploadPage } from './UploadPage'
+import { useTranslation } from "~/app/i18n/client";
+
+  export default function InvalidPath() {
+    const { t } = useTranslation();
+    return (<p>{t("InvitationRequired")}</p>);
+}

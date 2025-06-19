@@ -1,14 +1,18 @@
+"use client"
+
 import type { PropsWithChildren } from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import type { i18n } from "i18next";
-import { LanguagePopover } from "~/app/_components/LanguagePopover";
+import { LanguagePopover } from "~/components/LanguagePopover";
+import { useTranslation } from "~/app/i18n/client";
+import { Version } from "~/Version";
 
-export function BaseLayout(props: PropsWithChildren<{ i18n: i18n }>) {
-  const { i18n } = props;
+export function BaseLayout(props: PropsWithChildren) {
+  const { i18n } = useTranslation();
+
   return (
     <>
       <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-10 border-b backdrop-blur">
@@ -20,6 +24,12 @@ export function BaseLayout(props: PropsWithChildren<{ i18n: i18n }>) {
               data-v0-t="badge"
             >
               v2.0.0
+            </div>
+            <div
+              className="focus:ring-ring bg-secondary text-secondary-foreground hover:bg-secondary/80 ml-2 inline-flex items-center rounded-full border border-transparent px-2.5 py-0.5 text-xs font-semibold transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              data-v0-t="badge"
+            >
+              <Version/>
             </div>
           </div>
           <div className="ml-auto flex items-center gap-2">
@@ -40,9 +50,9 @@ export function BaseLayout(props: PropsWithChildren<{ i18n: i18n }>) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-globe h-4 w-4"
                   >
                     <circle cx="12" cy="12" r="10"></circle>

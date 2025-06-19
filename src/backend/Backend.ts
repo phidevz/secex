@@ -18,15 +18,39 @@
   ---------------------------------------------------------------------
 */
 
-import type { TestResult, DecryptedFile, RcFile } from "~/backend";
+import type * as openpgp from "openpgp";
+import { type DecryptedFile, type RcFile, type TestResult } from "~/backend";
+import type { EncryptedFile } from "~/backend/DecryptedFile";
 
 export interface Backend {
-    getUploadUrl(uploadId: string): string;
-    testUpload(uploadId: string): Promise<boolean>;
-    encryptUpload(file: RcFile, password: string): Promise<File | false>;
+  getUploadUrl(uploadId: string): string;
 
-    testDownload(downloadId: string): Promise<TestResult>;
-    listFiles(downloadId: string): Promise<string[] | undefined>;
-    testFile(downloadId: string, fileName: string): Promise<boolean>;
-    downloadFile(downloadId: string, fileName: string, password: string): Promise<DecryptedFile>;
+  testUpload(uploadId: string): Promise<boolean>;
+
+  encryptUpload(
+    file: RcFile,
+    password: string,
+    serverKeys: openpgp.Key[],
+  ): Promise<File | false>;
+
+  testDownload(downloadId: string): Promise<TestResult>;
+
+  listFiles(downloadId: string): Promise<string[] | undefined>;
+
+  testFile(downloadId: string, fileName: string): Promise<boolean>;
+
+  downloadFile(downloadId: string, fileName: string): Promise<EncryptedFile>;
+
+  decryptFile(
+    encryptedFile: EncryptedFile,
+    password: string,
+    verificationKeys: string[],
+  ): Promise<DecryptedFile>;
+
+  downloadHeader(
+    downloadId: string,
+    fileName: string,
+  ): Promise<{ fileName: string; size: number | undefined }>;
+
+  downloadRaw(downloadId: string, fileName: string, op: "HEAD" |"GET"): Promise<Response>;
 }

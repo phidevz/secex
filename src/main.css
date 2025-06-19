@@ -258,6 +258,7 @@ main {
 
 .signature-icon {
     margin: 0 0.5em;
+    display: inline-block;
 }
 
 .not-signed {

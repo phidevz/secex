@@ -6,6 +6,8 @@ import { Geist } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 import { cn } from "~/lib/utils";
 import { CookiesProvider } from "next-client-cookies/server";
+import type { ReactNode } from "react";
+import { getTranslation } from "~/app/i18n/server";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -18,10 +20,12 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
-function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const { i18n } = await getTranslation();
+
   return (
     <CookiesProvider>
-      <html lang="en" className={cn(`${geist.variable}`, "dark")}>
+      <html lang={i18n.language} className={cn(`${geist.variable}`, "dark")}>
         <body>
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </body>

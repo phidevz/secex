@@ -1,6 +1,6 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
-import PasskeyProvider from "next-auth/providers/passkey";
+// import PasskeyProvider from "next-auth/providers/passkey";
 import EntraId from "next-auth/providers/microsoft-entra-id";
 
 import { db } from "~/server/db";
@@ -26,11 +26,6 @@ declare module "next-auth" {
       // role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
@@ -45,7 +40,7 @@ export const authConfig = {
       clientSecret: env.AZURE_AD_CLIENT_SECRET,
       issuer: `https://login.microsoftonline.com/${env.AZURE_AD_TENANT_ID}/v2.0`,
     }),
-    PasskeyProvider({}),
+    // PasskeyProvider({}),
     /**
      * ...add more providers here.
      *
@@ -62,7 +57,7 @@ export const authConfig = {
     sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
   }),
-  experimental: { enableWebAuthn: true },
+  // experimental: { enableWebAuthn: true },
   callbacks: {
     session: ({ session, user }) => ({
       ...session,

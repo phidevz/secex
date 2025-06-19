@@ -18,10 +18,17 @@
   ---------------------------------------------------------------------
 */
 
-import * as openpgp from 'openpgp';
-import { SignatureVerification } from '~/backend';
+import type * as openpgp from "openpgp";
+import type { SignatureVerification } from "~/backend";
 
-export interface DecryptedFile {
-    message: openpgp.DecryptMessageResult,
-    signatures: SignatureVerification[];
+export type DecryptedFile =
+  | {
+      message: openpgp.DecryptMessageResult;
+      signatures: SignatureVerification[];
+    }
+  | false;
+
+export interface EncryptedFile {
+  encryptedBlob: Blob;
+  fileName: string;
 }

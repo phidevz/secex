@@ -8,7 +8,7 @@ import { cookieName, defaultLocale } from "~/app/i18n/index";
 
 const runsOnServerSide = typeof window === 'undefined'
 
-export  function useTranslation(ns?: string | string[], _options?: UseTranslationOptions<''>) {
+export function useTranslation(ns?: string | string[], _options?: UseTranslationOptions<''>) {
   const lng = useCookies().get()[cookieName] ?? defaultLocale
   if (runsOnServerSide && i18next.resolvedLanguage !== lng) {
     void i18next.changeLanguage(lng)
@@ -17,7 +17,9 @@ export  function useTranslation(ns?: string | string[], _options?: UseTranslatio
     const [activeLng, setActiveLng] = useState(i18next.resolvedLanguage)
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      if (activeLng === i18next.resolvedLanguage) return
+      if (activeLng === i18next.resolvedLanguage) {
+        return;
+      }
       setActiveLng(i18next.resolvedLanguage)
     }, [activeLng, i18next.resolvedLanguage])
     // eslint-disable-next-line react-hooks/rules-of-hooks

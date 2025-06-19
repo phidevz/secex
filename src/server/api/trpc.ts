@@ -15,7 +15,7 @@ import { auth } from "~/server/auth";
 import { db } from "~/server/db";
 import { BackendImpl } from "~/backend";
 
-const backend = new BackendImpl("https://secex.phimath.de/api/")
+export const backend = new BackendImpl("https://secex.phimath.de/api/")
 
 /**
  * 1. CONTEXT
@@ -92,9 +92,6 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
   const start = Date.now();
 
   if (t._config.isDev) {
-    // artificial delay in dev
-    const waitMs = Math.floor(Math.random() * 400) + 100;
-    await new Promise((resolve) => setTimeout(resolve, waitMs));
   }
 
   const result = await next();

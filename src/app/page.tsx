@@ -1,16 +1,14 @@
 import Link from "next/link";
 
-import { LatestPost } from "~/app/_components/post";
+import { LatestPost } from "~/components/post";
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import { Button } from "~/components/ui/button";
-import { BaseLayout } from "~/app/_components/BaseLayout";
-import { getTranslation } from "~/app/i18n/server";
+import { BaseLayout } from "~/components/BaseLayout";
 
 export default async function Home() {
   const hello = await api.user.hello({ text: "from tRPC" });
   const session = await auth();
-  const { i18n } = await getTranslation();
 
   if (session?.user) {
     void api.user.getLatest.prefetch();
@@ -18,7 +16,7 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <BaseLayout i18n={i18n}>
+      <BaseLayout>
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
             Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
